@@ -47,11 +47,17 @@ export const api = {
     if (MOCK) return delay(violations.find((v) => v.id === id));
     return request<Violation>(`/violations/${id}`);
   },
-  async getAnalytics() {
+  async getAnalytics(): Promise<{
+    violationsByType: typeof violationsByType;
+    dailyTrends: typeof dailyTrends;
+    vehicleDistribution: typeof vehicleDistribution;
+    ocrAccuracy: typeof ocrAccuracy;
+    detectionPerf: typeof detectionPerf;
+  }> {
     if (MOCK) return delay({ violationsByType, dailyTrends, vehicleDistribution, ocrAccuracy, detectionPerf });
     return request("/analytics");
   },
-  async generateReport(_payload: { from: string; to: string; format: "csv" | "pdf" }) {
+  async generateReport(_payload: { from: string; to: string; format: "csv" | "pdf" }): Promise<{ url: string; filename: string }> {
     if (MOCK) return delay({ url: "#", filename: `report-${Date.now()}.${_payload.format}` });
     return request("/reports", { method: "POST", body: JSON.stringify(_payload) });
   },
