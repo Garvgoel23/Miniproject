@@ -58,6 +58,12 @@ Compiles and bundles the application for production deployment:
 npm run build
 ```
 
+### Development Build
+Compiles and bundles the application in development mode (preserving source maps, etc.):
+```bash
+npm run build:dev
+```
+
 ### Preview Build
 Locally previews the compiled production build:
 ```bash
