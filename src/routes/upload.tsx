@@ -45,11 +45,11 @@ function Upload() {
   return (
     <AppShell title="Upload & detect" subtitle="Run detection on images or video. Live updates over WebSocket.">
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card className="border-border/60 bg-card/60 p-6 lg:col-span-2">
+        <Card className="p-6 lg:col-span-2">
           <div
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => { e.preventDefault(); onPick(e.dataTransfer.files?.[0] ?? null); }}
-            className="flex min-h-[280px] flex-col items-center justify-center rounded-xl border border-border bg-background/40 p-10 text-center transition-colors hover:border-primary/40"
+            className="flex min-h-[280px] flex-col items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04] p-10 text-center transition-colors hover:border-primary/40 hover:bg-white/[0.06]"
           >
             <UploadCloud className="h-10 w-10 text-primary" />
             <p className="mt-3 text-sm font-semibold">Drag & drop a file here</p>
@@ -59,7 +59,7 @@ function Upload() {
           </div>
 
           {file && (
-            <div className="mt-5 flex items-center justify-between rounded-lg border border-border/60 bg-background/40 p-3">
+            <div className="mt-5 flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.04] p-3">
               <div className="flex items-center gap-3">
                 {file.type.startsWith("video") ? <FileVideo className="h-5 w-5 text-primary" /> : <ImageIcon className="h-5 w-5 text-primary" />}
                 <div>
@@ -85,13 +85,13 @@ function Upload() {
           )}
         </Card>
 
-        <Card className="border-border/60 bg-card/60 p-6">
+        <Card className="p-6">
           <h3 className="text-sm font-semibold">Live detections</h3>
           <p className="text-xs text-muted-foreground">Streamed via WebSocket</p>
           <ul className="mt-4 max-h-[420px] space-y-2 overflow-auto pr-1">
             {detections.length === 0 && <li className="text-sm text-muted-foreground">Detections will appear here in real time.</li>}
             {detections.map((d, i) => (
-              <li key={i} className="flex items-center justify-between rounded-lg border border-border/60 bg-background/40 px-3 py-2 text-sm">
+              <li key={i} className="flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-2 text-sm">
                 <span>{d.label}</span>
                 <Badge variant="secondary">{(d.confidence * 100).toFixed(0)}%</Badge>
               </li>

@@ -35,7 +35,7 @@ function ViolationsPage() {
 
   return (
     <AppShell title="Violations" subtitle={`${filtered.length} of ${data?.length ?? 0} records`}>
-      <Card className="border-border/60 bg-card/60 p-4">
+      <Card className="p-4">
         <div className="grid gap-3 md:grid-cols-5">
           <div className="relative md:col-span-2">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -63,10 +63,10 @@ function ViolationsPage() {
         </div>
       </Card>
 
-      <Card className="mt-4 overflow-hidden border-border/60 bg-card/60">
+      <Card className="mt-4 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-secondary/30 text-xs uppercase tracking-wider text-muted-foreground">
+            <thead className="bg-white/[0.03] text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
                 {["ID", "Type", "Vehicle", "Plate", "Confidence", "Timestamp", "Status", "Actions"].map((h) => (
                   <th key={h} className="px-4 py-3 text-left">{h}</th>
@@ -75,7 +75,7 @@ function ViolationsPage() {
             </thead>
             <tbody>
               {filtered.map((v) => (
-                <tr key={v.id} className="border-t border-border/40 hover:bg-secondary/20">
+                <tr key={v.id} className="border-t border-white/[0.06] transition-all duration-200 hover:bg-white/[0.04]">
                   <td className="px-4 py-3 font-mono text-xs">{v.id}</td>
                   <td className="px-4 py-3">{v.type}</td>
                   <td className="px-4 py-3 text-muted-foreground">{v.vehicleClass}</td>

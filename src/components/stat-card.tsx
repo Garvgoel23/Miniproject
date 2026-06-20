@@ -12,7 +12,7 @@ export function StatCard({ label, value, delta, icon: Icon, tone = "primary" }: 
     destructive: "bg-destructive/15 text-destructive ring-destructive/30",
   };
   return (
-    <Card className="relative overflow-hidden border-border/60 bg-card/60 p-5 backdrop-blur">
+    <Card className="relative overflow-hidden p-6 glass-hover">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs uppercase tracking-wider text-muted-foreground">{label}</p>

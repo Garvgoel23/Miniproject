@@ -52,10 +52,10 @@ function Field({ label, id, children }: { label: string; id: string; children: R
 
 export function AuthLayout({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background bg-grid bg-grid-fade px-4">
-      <div className="w-full max-w-md">
+    <div className="flex min-h-screen items-center justify-center bg-background bg-grid bg-grid-fade ambient-glow px-4">
+      <div className="relative z-10 w-full max-w-md">
         <div className="mb-6 flex justify-center"><Brand /></div>
-        <Card className="border-border/60 bg-card/70 p-8 backdrop-blur">
+        <Card className="p-8 shadow-[0_12px_48px_oklch(0_0_0/0.4),0_0_80px_-20px_var(--glow-primary)]">
           <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
           <div className="mt-6">{children}</div>

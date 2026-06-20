@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen ambient-glow">
       <SiteNavbar />
       <Hero />
       <Overview />
@@ -39,9 +39,6 @@ function Hero() {
   return (
     <section className="relative overflow-hidden bg-grid bg-grid-fade">
       <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-20 text-center">
-        <Link to="/dashboard" className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> New: Live ANPR streaming dashboard is now available
-        </Link>
         <h1 className="mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
           <span className="text-foreground">Detect every</span>{" "}
           <span className="relative inline-block">
@@ -50,13 +47,13 @@ function Hero() {
           <br />
           <span className="text-muted-foreground">in real time, at city scale.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">
+        <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground md:text-lg text-shadow-hero">
           TrafficVision AI analyses live camera feeds and uploaded footage to flag helmet violations,
           triple riding, illegal parking and signal jumps — with automatic plate recognition and
           court-ready evidence packs.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <Button asChild size="lg" className="glow-primary"><Link to="/dashboard"><Play className="mr-2 h-4 w-4" />Open Dashboard</Link></Button>
+          <Button asChild size="lg"><Link to="/dashboard"><Play className="mr-2 h-4 w-4" />Open Dashboard</Link></Button>
           <Button asChild variant="outline" size="lg"><Link to="/upload"><Upload className="mr-2 h-4 w-4" />Try Detection</Link></Button>
         </div>
         <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-4 md:grid-cols-4">
@@ -66,7 +63,7 @@ function Hero() {
             { k: "94.7%", v: "Detection accuracy" },
             { k: "180ms", v: "Avg. inference" },
           ].map((s) => (
-            <div key={s.v} className="rounded-xl border border-border/60 bg-card/40 p-4 backdrop-blur">
+            <div key={s.v} className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-4 backdrop-blur-xl transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.06]">
               <div className="text-2xl font-semibold tracking-tight">{s.k}</div>
               <div className="text-xs text-muted-foreground">{s.v}</div>
             </div>
@@ -79,18 +76,18 @@ function Hero() {
 
 function Overview() {
   return (
-    <section className="border-y border-border/60 bg-secondary/30">
+    <section className="border-y border-white/[0.06] bg-white/[0.02]">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid items-center gap-10 md:grid-cols-2">
-          <div>
+          <Card className="p-8 shadow-[0_12px_48px_rgba(0,0,0,0.5)]">
             <p className="text-xs uppercase tracking-widest text-primary">Product overview</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">One platform. Every camera. Every violation.</h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-4 text-muted-foreground text-sm leading-relaxed">
               Connect existing CCTV, body-cams or upload recordings. Our vision models run real-time
               detection, classify vehicle types, run ANPR/OCR on the plate, and create
               tamper-evident evidence packs that integrate with your enforcement workflow.
             </p>
-          </div>
+          </Card>
           <div className="grid grid-cols-2 gap-3">
             {[
               { icon: ShieldCheck, t: "Compliance-ready", d: "Audit logs, role-based access, SOC2-aligned controls." },
@@ -98,7 +95,7 @@ function Overview() {
               { icon: Camera, t: "Multi-camera", d: "RTSP, ONVIF and HLS streams. Auto-failover." },
               { icon: Gauge, t: "Fast", d: "Sub-200ms detection with batched GPU inference." },
             ].map(({ icon: Icon, t, d }) => (
-              <Card key={t} className="border-border/60 bg-card/60 p-4">
+              <Card key={t} className="p-4 glass-hover">
                 <Icon className="h-5 w-5 text-primary" />
                 <p className="mt-3 text-sm font-semibold">{t}</p>
                 <p className="text-xs text-muted-foreground">{d}</p>
@@ -126,7 +123,7 @@ function Features() {
         <SectionHeader eyebrow="Capabilities" title="Built for enforcement teams" subtitle="Every detection comes with explainable evidence." />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map(({ icon: Icon, t, d }) => (
-            <Card key={t} className="border-border/60 bg-card/60 p-6 transition-colors hover:border-primary/40">
+            <Card key={t} className="p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-[0_0_24px_-8px_var(--glow-primary)]">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/30"><Icon className="h-5 w-5 text-primary" /></span>
               <h3 className="mt-4 text-lg font-semibold">{t}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{d}</p>
@@ -146,12 +143,12 @@ function HowItWorks() {
     { n: "04", t: "Notify", d: "Push to enforcement systems, send SMS/notice to violators, export to court." },
   ];
   return (
-    <section className="border-y border-border/60 bg-secondary/30">
+    <section className="border-y border-white/[0.06] bg-white/[0.02]">
       <div className="mx-auto max-w-7xl px-6 py-20">
         <SectionHeader eyebrow="How it works" title="From frame to enforcement in seconds" />
         <ol className="grid gap-4 md:grid-cols-4">
           {steps.map((s) => (
-            <li key={s.n} className="rounded-2xl border border-border/60 bg-card/60 p-6">
+            <li key={s.n} className="rounded-2xl border border-white/[0.08] bg-card/50 p-6 backdrop-blur-xl transition-all duration-200 hover:border-white/[0.12]">
               <div className="text-xs font-mono text-primary">{s.n}</div>
               <div className="mt-2 text-lg font-semibold">{s.t}</div>
               <p className="mt-1 text-sm text-muted-foreground">{s.d}</p>
@@ -174,13 +171,13 @@ function Architecture() {
             { t: "Streaming gateway", d: "WebSocket pipeline for live detections + low-latency UI updates." },
             { t: "Analytics core", d: "FastAPI + Postgres + object storage for evidence and metrics." },
           ].map((b) => (
-            <Card key={b.t} className="border-border/60 bg-card/60 p-6">
+            <Card key={b.t} className="p-6 glass-hover">
               <p className="text-sm font-semibold">{b.t}</p>
               <p className="mt-1 text-sm text-muted-foreground">{b.d}</p>
             </Card>
           ))}
         </div>
-        <pre className="mt-6 overflow-x-auto rounded-2xl border border-border/60 bg-card/60 p-6 text-xs leading-relaxed text-muted-foreground">
+        <pre className="mt-6 overflow-x-auto rounded-2xl border border-white/[0.08] bg-card/50 p-6 text-xs leading-relaxed text-muted-foreground backdrop-blur-xl">
 {`  Cameras ──▶ Edge GPU ──▶ Detection ──▶ ANPR/OCR ──▶ Evidence Pack
                   │             │             │             │
                   ▼             ▼             ▼             ▼
@@ -194,17 +191,17 @@ function Architecture() {
 
 function AnalyticsShowcase() {
   return (
-    <section className="border-y border-border/60 bg-secondary/30">
+    <section className="border-y border-white/[0.06] bg-white/[0.02]">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-2 md:items-center">
         <div>
           <SectionHeader eyebrow="Analytics" title="Operational insight, not just dashboards" align="left" />
           <p className="text-muted-foreground">Time-of-day trends, hotspot heatmaps, repeat-offender clustering and accuracy monitoring — all in one place.</p>
           <Button asChild className="mt-6"><Link to="/analytics">Explore analytics</Link></Button>
         </div>
-        <Card className="border-border/60 bg-card/60 p-6">
+        <Card className="p-6">
           <div className="grid grid-cols-2 gap-3">
             {[{ k: "12,847", v: "Total violations" }, { k: "94.7%", v: "Accuracy" }, { k: "96.2%", v: "OCR success" }, { k: "+18%", v: "Week over week" }].map((s) => (
-              <div key={s.v} className="rounded-lg border border-border/60 bg-background/40 p-4">
+              <div key={s.v} className="rounded-lg border border-white/[0.08] bg-white/[0.04] p-4 backdrop-blur-md">
                 <div className="text-2xl font-semibold">{s.k}</div>
                 <div className="text-xs text-muted-foreground">{s.v}</div>
               </div>
@@ -227,7 +224,7 @@ function DemoWorkflow() {
             { t: "2. Watch live detection", d: "Bounding boxes and ANPR appear as we process.", to: "/upload" },
             { t: "3. Review & export", d: "Verify, file and export tamper-evident evidence.", to: "/violations" },
           ].map((s) => (
-            <Card key={s.t} className="border-border/60 bg-card/60 p-6">
+            <Card key={s.t} className="p-6 glass-hover">
               <p className="text-lg font-semibold">{s.t}</p>
               <p className="mt-1 text-sm text-muted-foreground">{s.d}</p>
               <Button asChild variant="link" className="mt-3 px-0"><Link to={s.to}>Try it →</Link></Button>
@@ -247,12 +244,12 @@ function FAQ() {
     { q: "Is the data tamper-evident?", a: "Each evidence pack is hashed and signed with chain-of-custody metadata." },
   ];
   return (
-    <section id="faq" className="border-t border-border/60 bg-secondary/30">
+    <section id="faq" className="border-t border-white/[0.06] bg-white/[0.02]">
       <div className="mx-auto max-w-3xl px-6 py-20">
         <SectionHeader eyebrow="FAQ" title="Frequently asked questions" />
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((f, i) => (
-            <AccordionItem key={f.q} value={`i${i}`} className="border-border/60">
+            <AccordionItem key={f.q} value={`i${i}`} className="border-white/[0.06]">
               <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
               <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
             </AccordionItem>
@@ -267,8 +264,8 @@ function SectionHeader({ eyebrow, title, subtitle, align = "center" }: { eyebrow
   return (
     <div className={`mb-10 ${align === "center" ? "text-center" : ""}`}>
       <p className="text-xs uppercase tracking-widest text-primary">{eyebrow}</p>
-      <h2 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">{title}</h2>
-      {subtitle && <p className="mx-auto mt-2 max-w-2xl text-muted-foreground">{subtitle}</p>}
+      <h2 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl text-shadow-hero">{title}</h2>
+      {subtitle && <p className="mx-auto mt-2 max-w-2xl text-muted-foreground text-shadow-hero">{subtitle}</p>}
     </div>
   );
 }

@@ -32,7 +32,7 @@ function Dashboard() {
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Card className="border-border/60 bg-card/60 p-5 lg:col-span-2">
+        <Card className="p-5 lg:col-span-2">
           <div className="mb-2 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold">Daily trends</h3>
@@ -50,7 +50,7 @@ function Dashboard() {
                 <CartesianGrid strokeDasharray="0" stroke="oklch(1 0 0 / 0.05)" />
                 <XAxis dataKey="date" stroke="var(--color-muted-foreground)" fontSize={11} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={11} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 8 }} />
+                <Tooltip contentStyle={{ background: 'oklch(0.15 0.012 260 / 0.8)', border: '1px solid oklch(1 0 0 / 0.08)', borderRadius: 12, backdropFilter: 'blur(20px)' }} />
                 <Area type="monotone" dataKey="helmet" stroke="var(--color-chart-1)" fill="url(#g1)" />
                 <Area type="monotone" dataKey="parking" stroke="var(--color-chart-2)" fill="url(#g2)" />
                 <Area type="monotone" dataKey="triple" stroke="var(--color-chart-3)" fill="url(#g3)" />
@@ -58,7 +58,7 @@ function Dashboard() {
             </ResponsiveContainer>
           </div>
         </Card>
-        <Card className="border-border/60 bg-card/60 p-5">
+        <Card className="p-5">
           <h3 className="text-sm font-semibold">Violations by type</h3>
           <p className="text-xs text-muted-foreground">All time</p>
           <div className="mt-2 h-72">
@@ -67,7 +67,7 @@ function Dashboard() {
                 <CartesianGrid stroke="oklch(1 0 0 / 0.05)" />
                 <XAxis dataKey="name" stroke="var(--color-muted-foreground)" fontSize={10} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={11} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 8 }} />
+                <Tooltip contentStyle={{ background: 'oklch(0.15 0.012 260 / 0.8)', border: '1px solid oklch(1 0 0 / 0.08)', borderRadius: 12, backdropFilter: 'blur(20px)' }} />
                 <Bar dataKey="count" fill="var(--color-primary)" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -75,7 +75,7 @@ function Dashboard() {
         </Card>
       </div>
 
-      <Card className="mt-6 border-border/60 bg-card/60 p-5">
+      <Card className="mt-6 p-5">
         <div className="mb-3 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-semibold">Recent violations</h3>
@@ -86,7 +86,7 @@ function Dashboard() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="text-xs uppercase tracking-wider text-muted-foreground">
-              <tr className="border-b border-border/60">
+              <tr className="border-b border-white/[0.06]">
                 <th className="px-3 py-2 text-left">ID</th>
                 <th className="px-3 py-2 text-left">Type</th>
                 <th className="px-3 py-2 text-left">Plate</th>
@@ -97,7 +97,7 @@ function Dashboard() {
             </thead>
             <tbody>
               {(violations.data ?? []).slice(0, 7).map((v) => (
-                <tr key={v.id} className="border-b border-border/40">
+                <tr key={v.id} className="border-b border-white/[0.04] transition-all duration-200 hover:bg-white/[0.03]">
                   <td className="px-3 py-2 font-mono text-xs"><Link to="/evidence/$id" params={{ id: v.id }} className="hover:text-primary">{v.id}</Link></td>
                   <td className="px-3 py-2">{v.type}</td>
                   <td className="px-3 py-2 font-mono">{v.plate}</td>

@@ -26,7 +26,7 @@ function SettingsPage() {
         </TabsList>
 
         <TabsContent value="profile" className="mt-4">
-          <Card className="border-border/60 bg-card/60 p-6">
+          <Card className="p-6">
             <h3 className="text-sm font-semibold">Profile</h3>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               <Field label="Name" defaultValue="Officer Demo" />
@@ -39,7 +39,7 @@ function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="theme" className="mt-4">
-          <Card className="border-border/60 bg-card/60 p-6">
+          <Card className="p-6">
             <h3 className="text-sm font-semibold">Appearance</h3>
             <p className="text-xs text-muted-foreground">Dark theme is the default for TrafficVision AI.</p>
             <Row label="Compact density"><Switch /></Row>
@@ -48,7 +48,7 @@ function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="api" className="mt-4">
-          <Card className="border-border/60 bg-card/60 p-6">
+          <Card className="p-6">
             <h3 className="text-sm font-semibold">API configuration</h3>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               <Field label="API base URL" defaultValue="https://api.trafficvision.ai" />
@@ -61,7 +61,7 @@ function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="notifications" className="mt-4">
-          <Card className="border-border/60 bg-card/60 p-6">
+          <Card className="p-6">
             <h3 className="text-sm font-semibold">Notifications</h3>
             <Row label="Email on new violation"><Switch defaultChecked /></Row>
             <Row label="Daily summary digest"><Switch defaultChecked /></Row>
@@ -85,7 +85,7 @@ function Field({ label, defaultValue }: { label: string; defaultValue: string })
 }
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="mt-4 flex items-center justify-between border-t border-border/40 pt-4 first:border-0 first:pt-0">
+    <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-4 first:border-0 first:pt-0">
       <span className="text-sm">{label}</span>
       {children}
     </div>

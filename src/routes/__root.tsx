@@ -13,23 +13,29 @@ import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+import { Card } from "@/components/ui/card";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background bg-grid px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-background bg-grid bg-grid-fade ambient-glow px-4">
+      <div className="relative z-10 w-full max-w-md">
+        <Card className="p-8 text-center shadow-[0_12px_48px_oklch(0_0_0/0.4),0_0_80px_-20px_var(--glow-primary)]">
+          <h1 className="text-7xl font-bold text-foreground">404</h1>
+          <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+          <div className="mt-6">
+            <Link
+              to="/"
+              className={cn(buttonVariants({ variant: "default" }), "w-full")}
+            >
+              Go home
+            </Link>
+          </div>
+        </Card>
       </div>
     </div>
   );
@@ -43,31 +49,34 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-background bg-grid bg-grid-fade ambient-glow px-4">
+      <div className="relative z-10 w-full max-w-md">
+        <Card className="p-8 text-center shadow-[0_12px_48px_oklch(0_0_0/0.4),0_0_80px_-20px_var(--glow-primary)]">
+          <h1 className="text-xl font-semibold tracking-tight text-foreground">
+            This page didn't load
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Something went wrong on our end. You can try refreshing or head back home.
+          </p>
+          <div className="mt-6 flex flex-col gap-2">
+            <Button
+              onClick={() => {
+                router.invalidate();
+                reset();
+              }}
+              variant="default"
+              className="w-full"
+            >
+              Try again
+            </Button>
+            <Link
+              to="/"
+              className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+            >
+              Go home
+            </Link>
+          </div>
+        </Card>
       </div>
     </div>
   );

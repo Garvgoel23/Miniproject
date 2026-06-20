@@ -35,14 +35,14 @@ function Reports() {
           { k: `${(stats.detectionAccuracy * 100).toFixed(1)}%`, v: "Accuracy" },
           { k: `${(stats.ocrSuccessRate * 100).toFixed(1)}%`, v: "OCR success" },
         ].map((s) => (
-          <Card key={s.v} className="border-border/60 bg-card/60 p-5">
+          <Card key={s.v} className="p-5">
             <div className="text-2xl font-semibold tracking-tight">{s.k}</div>
             <div className="mt-1 text-xs text-muted-foreground">{s.v}</div>
           </Card>
         ))}
       </div>
 
-      <Card className="mt-6 border-border/60 bg-card/60 p-6">
+      <Card className="mt-6 p-6">
         <h3 className="text-sm font-semibold">Generate report</h3>
         <p className="text-xs text-muted-foreground">Pick a date range and export format.</p>
         <div className="mt-5 grid gap-3 md:grid-cols-3">
@@ -55,9 +55,9 @@ function Reports() {
         </div>
       </Card>
 
-      <Card className="mt-4 border-border/60 bg-card/60 p-6">
+      <Card className="mt-4 p-6">
         <h3 className="text-sm font-semibold">Recent reports</h3>
-        <ul className="mt-3 divide-y divide-border/40 text-sm">
+        <ul className="mt-3 divide-y divide-white/[0.06] text-sm">
           {["October-2026-summary.pdf", "Helmet-Q3.csv", "Hi-Tec-City-weekly.pdf"].map((f) => (
             <li key={f} className="flex items-center justify-between py-3">
               <div className="flex items-center gap-3"><FileText className="h-4 w-4 text-primary" /><span>{f}</span></div>

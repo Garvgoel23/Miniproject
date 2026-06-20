@@ -63,7 +63,7 @@ function Analytics() {
           </LineChart>
         </ChartCard>
 
-        <Card className="border-border/60 bg-card/60 p-5 lg:col-span-2">
+        <Card className="p-5 lg:col-span-2">
           <h3 className="text-sm font-semibold">Detection performance</h3>
           <p className="text-xs text-muted-foreground">Weekly precision vs recall</p>
           <div className="mt-4 h-72">
@@ -85,11 +85,11 @@ function Analytics() {
   );
 }
 
-const tooltipStyle = { background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 8, fontSize: 12 } as const;
+const tooltipStyle = { background: 'oklch(0.15 0.012 260 / 0.8)', border: '1px solid oklch(1 0 0 / 0.08)', borderRadius: 12, fontSize: 12, backdropFilter: 'blur(20px)' } as const;
 
 function ChartCard({ title, children }: { title: string; children: React.ReactElement }) {
   return (
-    <Card className="border-border/60 bg-card/60 p-5">
+    <Card className="p-5">
       <h3 className="text-sm font-semibold">{title}</h3>
       <div className="mt-3 h-72"><ResponsiveContainer>{children}</ResponsiveContainer></div>
     </Card>

@@ -27,7 +27,7 @@ function Evidence() {
         </>
       }>
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card className="border-border/60 bg-card/60 p-4 lg:col-span-2">
+        <Card className="p-4 lg:col-span-2">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br from-secondary to-background ring-1 ring-border">
             {/* Simulated annotated image */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,oklch(0.3_0.05_260)_0%,transparent_60%)]" />
@@ -41,7 +41,7 @@ function Evidence() {
         </Card>
 
         <div className="space-y-4">
-          <Card className="border-border/60 bg-card/60 p-5">
+          <Card className="p-5">
             <h3 className="text-sm font-semibold">Violation details</h3>
             <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
               <Row k="Type" v={v?.type} />
@@ -52,14 +52,14 @@ function Evidence() {
               <Row k="Status" v={v?.status ?? "—"} />
             </dl>
           </Card>
-          <Card className="border-border/60 bg-card/60 p-5">
+          <Card className="p-5">
             <h3 className="text-sm font-semibold">OCR results</h3>
-            <div className="mt-3 rounded-lg border border-border/60 bg-background/40 p-3 font-mono text-sm">
+            <div className="mt-3 rounded-lg border border-white/[0.08] bg-white/[0.04] p-3 font-mono text-sm backdrop-blur-md">
               <div className="flex items-center justify-between"><span>{v?.plate ?? "—"}</span><Badge variant="secondary">96.4%</Badge></div>
               <p className="mt-2 text-xs text-muted-foreground">Recognized via ANPR pipeline · 2 candidates rejected</p>
             </div>
           </Card>
-          <Card className="border-border/60 bg-card/60 p-5">
+          <Card className="p-5">
             <h3 className="text-sm font-semibold">Metadata</h3>
             <dl className="mt-3 space-y-2 text-sm">
               <Row k="Captured" v={v ? new Date(v.timestamp).toLocaleString() : "—"} />
