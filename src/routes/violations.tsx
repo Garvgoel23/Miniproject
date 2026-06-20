@@ -45,7 +45,7 @@ function ViolationsPage() {
             <SelectTrigger><SelectValue placeholder="Type" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All types</SelectItem>
-              {["Helmet", "Triple Riding", "Illegal Parking", "Signal Jump", "Wrong Lane"].map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+              {["Helmet", "Triple Riding", "Illegal Parking", "Signal Jump", "Wrong Lane", "Stop Line", "Modified Vehicle"].map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
             </SelectContent>
           </Select>
           <Select value={vehicle} onValueChange={setVehicle}>

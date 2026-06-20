@@ -48,9 +48,16 @@ export interface HealthStatus {
   uptime_seconds: number;
 }
 
+export interface RawDetection {
+  bbox: number[];
+  class_id: number;
+  class_name: string;
+  confidence: number;
+}
+
 export interface ImageAnalysisResult {
   success: boolean;
-  report: BackendFrameReport;
+  report: BackendFrameReport & { detections?: RawDetection[] };
   annotated_image_url?: string | null;
 }
 
@@ -58,12 +65,19 @@ export interface VideoAnalysisResult {
   success: boolean;
   total_frames_processed: number;
   frames_with_violations: number;
-  reports: BackendFrameReport[];
+  reports: (BackendFrameReport & { detections?: RawDetection[] })[];
   annotated_video_url?: string | null;
   summary: {
     violation_counts: Record<string, number>;
     total_violations: number;
   };
+}
+
+export interface AnalysisResultWithDetections {
+  violations: Violation[];
+  detections: RawDetection[];
+  annotatedImageUrl?: string;
+  processingTimeMs?: number;
 }
 
 function computeStats(violations: Violation[]) {
@@ -86,7 +100,7 @@ function computeStats(violations: Violation[]) {
 }
 
 function computeAnalytics(violations: Violation[]) {
-  const types: ViolationType[] = ["Helmet", "Triple Riding", "Illegal Parking", "Signal Jump", "Wrong Lane"];
+  const types: ViolationType[] = ["Helmet", "Triple Riding", "Illegal Parking", "Signal Jump", "Wrong Lane", "Stop Line", "Modified Vehicle"];
   const violationsByType = types.map((name) => ({
     name,
     count: violations.filter((v) => v.type === name).length,
@@ -173,7 +187,7 @@ export const api = {
     return computeAnalytics(violationsStore.getAll());
   },
 
-  async analyzeImage(file: File, onProgress?: (pct: number) => void): Promise<Violation[]> {
+  async analyzeImage(file: File, onProgress?: (pct: number) => void): Promise<AnalysisResultWithDetections> {
     onProgress?.(10);
     const form = new FormData();
     form.append("file", file);
@@ -192,10 +206,15 @@ export const api = {
     });
     violationsStore.addMany(mapped);
     onProgress?.(100);
-    return mapped;
+    return {
+      violations: mapped,
+      detections: result.report.detections ?? [],
+      annotatedImageUrl,
+      processingTimeMs: result.report.processing_time_ms,
+    };
   },
 
-  async analyzeVideo(file: File, onProgress?: (pct: number) => void): Promise<Violation[]> {
+  async analyzeVideo(file: File, onProgress?: (pct: number) => void): Promise<AnalysisResultWithDetections> {
     onProgress?.(5);
     const form = new FormData();
     form.append("file", file);
@@ -208,12 +227,18 @@ export const api = {
     onProgress?.(85);
 
     const all: Violation[] = [];
+    const allDetections: RawDetection[] = [];
     for (const report of result.reports) {
       all.push(...mapFrameReport(report, { sourceFile: file.name }));
+      if (report.detections) allDetections.push(...report.detections);
     }
     violationsStore.addMany(all);
     onProgress?.(100);
-    return all;
+    return {
+      violations: all,
+      detections: allDetections,
+      processingTimeMs: result.reports.reduce((sum, r) => sum + (r.processing_time_ms ?? 0), 0),
+    };
   },
 
   async generateReport(payload: { from: string; to: string; format: "csv" | "pdf" }): Promise<{ url: string; filename: string }> {

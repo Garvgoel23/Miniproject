@@ -1,4 +1,4 @@
-export type ViolationType = "Helmet" | "Triple Riding" | "Illegal Parking" | "Signal Jump" | "Wrong Lane";
+export type ViolationType = "Helmet" | "Triple Riding" | "Illegal Parking" | "Signal Jump" | "Wrong Lane" | "Stop Line" | "Modified Vehicle";
 export type VehicleClass = "Motorcycle" | "Car" | "Truck" | "Bus" | "Auto-rickshaw";
 export type ViolationStatus = "Pending" | "Verified" | "Dismissed" | "Notified";
 

@@ -40,8 +40,8 @@ const TYPE_MAP: Record<string, ViolationType> = {
   TRIPLE_RIDING: "Triple Riding",
   ILLEGAL_PARKING: "Illegal Parking",
   RED_LIGHT_VIOLATION: "Signal Jump",
-  STOP_LINE_VIOLATION: "Wrong Lane",
-  MODIFIED_VEHICLE: "Wrong Lane",
+  STOP_LINE_VIOLATION: "Stop Line",
+  MODIFIED_VEHICLE: "Modified Vehicle",
 };
 
 const VEHICLE_MAP: Record<string, VehicleClass> = {
