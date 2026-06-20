@@ -29,14 +29,28 @@ function Evidence() {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="p-4 lg:col-span-2">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br from-secondary to-background ring-1 ring-border">
-            {/* Simulated annotated image */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,oklch(0.3_0.05_260)_0%,transparent_60%)]" />
-            <div className="absolute left-[18%] top-[28%] h-[40%] w-[32%] rounded-md border-2 border-primary/80 shadow-[0_0_30px_oklch(0.65_0.21_255/0.5)]">
-              <span className="absolute -top-6 left-0 rounded bg-primary px-2 py-0.5 text-xs font-mono text-primary-foreground">helmet · 0.93</span>
-            </div>
-            <div className="absolute right-[12%] bottom-[16%] h-[22%] w-[26%] rounded-md border-2 border-accent/80">
-              <span className="absolute -top-6 left-0 rounded bg-accent px-2 py-0.5 text-xs font-mono text-accent-foreground">plate · {v?.plate ?? "—"}</span>
-            </div>
+            {v?.imageUrl ? (
+              <img src={v.imageUrl} alt="Annotated detection" className="h-full w-full object-contain" />
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,oklch(0.3_0.05_260)_0%,transparent_60%)]" />
+                {v?.bbox && (
+                  <div
+                    className="absolute rounded-md border-2 border-primary/80 shadow-[0_0_30px_oklch(0.65_0.21_255/0.5)]"
+                    style={{
+                      left: `${(v.bbox[0] / 1920) * 100}%`,
+                      top: `${(v.bbox[1] / 1080) * 100}%`,
+                      width: `${((v.bbox[2] - v.bbox[0]) / 1920) * 100}%`,
+                      height: `${((v.bbox[3] - v.bbox[1]) / 1080) * 100}%`,
+                    }}
+                  >
+                    <span className="absolute -top-6 left-0 rounded bg-primary px-2 py-0.5 text-xs font-mono text-primary-foreground">
+                      {v.type} · {v.confidence.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </Card>
 

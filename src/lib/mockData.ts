@@ -12,6 +12,11 @@ export interface Violation {
   status: ViolationStatus;
   location: string;
   imageUrl?: string;
+  bbox?: number[];
+  severity?: string;
+  frameId?: number;
+  sourceFile?: string;
+  backendType?: string;
 }
 
 const types: ViolationType[] = ["Helmet", "Triple Riding", "Illegal Parking", "Signal Jump", "Wrong Lane"];
