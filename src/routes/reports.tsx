@@ -8,7 +8,7 @@ import { FileText, FileSpreadsheet, FileDown } from "lucide-react";
 import { useState } from "react";
 import { api } from "@/services/api";
 import { toast } from "sonner";
-import { stats } from "@/lib/mockData";
+import { useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/reports")({
   head: () => ({ meta: [{ title: "Reports — TrafficVision AI" }] }),
@@ -16,6 +16,7 @@ export const Route = createFileRoute("/reports")({
 });
 
 function Reports() {
+  const { data: stats } = useQuery({ queryKey: ["stats"], queryFn: api.getStats });
   const today = new Date().toISOString().slice(0, 10);
   const monthAgo = new Date(Date.now() - 30 * 86400 * 1000).toISOString().slice(0, 10);
   const [from, setFrom] = useState(monthAgo);
@@ -30,10 +31,10 @@ function Reports() {
     <AppShell title="Reports" subtitle="Generate violation and performance reports">
       <div className="grid gap-4 md:grid-cols-4">
         {[
-          { k: stats.totalViolations.toLocaleString(), v: "Violations in period" },
-          { k: "92", v: "Cameras reporting" },
-          { k: `${(stats.detectionAccuracy * 100).toFixed(1)}%`, v: "Accuracy" },
-          { k: `${(stats.ocrSuccessRate * 100).toFixed(1)}%`, v: "OCR success" },
+          { k: (stats?.totalViolations ?? 0).toLocaleString(), v: "Violations in period" },
+          { k: "—", v: "Cameras reporting" },
+          { k: stats ? `${(stats.detectionAccuracy * 100).toFixed(1)}%` : "—", v: "Accuracy" },
+          { k: stats ? `${(stats.ocrSuccessRate * 100).toFixed(1)}%` : "—", v: "OCR success" },
         ].map((s) => (
           <Card key={s.v} className="p-5">
             <div className="text-2xl font-semibold tracking-tight">{s.k}</div>

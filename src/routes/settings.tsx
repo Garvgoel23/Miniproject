@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/services/api";
+import { WS_URL } from "@/services/websocket";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/services/api";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({ meta: [{ title: "Settings — TrafficVision AI" }] }),
@@ -15,6 +19,8 @@ export const Route = createFileRoute("/settings")({
 });
 
 function SettingsPage() {
+  const health = useQuery({ queryKey: ["health"], queryFn: api.health, retry: 1 });
+
   return (
     <AppShell title="Settings" subtitle="Profile, API and notifications">
       <Tabs defaultValue="profile" className="w-full">
@@ -51,10 +57,26 @@ function SettingsPage() {
           <Card className="p-6">
             <h3 className="text-sm font-semibold">API configuration</h3>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
-              <Field label="API base URL" defaultValue="https://api.trafficvision.ai" />
-              <Field label="WebSocket URL" defaultValue="wss://api.trafficvision.ai/ws" />
-              <Field label="API key" defaultValue="tv_live_••••••••••••" />
-              <Field label="Region" defaultValue="ap-south-1" />
+              <Field
+                label="API base URL"
+                defaultValue={API_BASE_URL || `${typeof window !== "undefined" ? window.location.origin : ""} (proxied → backend)`}
+                readOnly
+              />
+              <Field label="WebSocket URL" defaultValue={WS_URL} readOnly />
+              <Field
+                label="Backend status"
+                defaultValue={
+                  health.isLoading
+                    ? "Checking…"
+                    : health.data?.status === "ok"
+                      ? "Connected · models loaded"
+                      : health.error
+                        ? "Unreachable"
+                        : health.data?.status ?? "Unknown"
+                }
+                readOnly
+              />
+              <Field label="Region" defaultValue="ap-south-1" readOnly />
             </div>
             <Button className="mt-5" onClick={() => toast.success("API settings saved")}>Save settings</Button>
           </Card>
@@ -74,12 +96,12 @@ function SettingsPage() {
   );
 }
 
-function Field({ label, defaultValue }: { label: string; defaultValue: string }) {
+function Field({ label, defaultValue, readOnly }: { label: string; defaultValue: string; readOnly?: boolean }) {
   const [v, setV] = useState(defaultValue);
   return (
     <div className="space-y-1.5">
       <Label>{label}</Label>
-      <Input value={v} onChange={(e) => setV(e.target.value)} />
+      <Input value={v} readOnly={readOnly} onChange={(e) => setV(e.target.value)} />
     </div>
   );
 }

@@ -1,3 +1,14 @@
+
+.env 
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
 # Logs
 logs
 *.log
