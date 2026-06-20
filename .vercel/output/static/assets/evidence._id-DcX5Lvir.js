@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-DUAcabCT.js";var t=e(),n=()=>(0,t.jsx)(`div`,{className:`p-10 text-center`,children:`Evidence not found.`});export{n as notFoundComponent};
